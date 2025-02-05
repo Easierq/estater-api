@@ -27,3 +27,39 @@ export const verifyAdmin = (req, res, next) => {
     next();
   });
 };
+
+// USING HEADERS
+
+export const verifyHeader = (req, res, next) => {
+  const authHeader = req.headers.token;
+  if (!authHeader || !authHeader.startsWith("Bearer "))
+    return res.status(401).json({ message: "Not Authenticated!" });
+  const token = authHeader.split(" ")[1];
+  if (!token) return res.status(401).json({ message: "Not Authenticated!" });
+
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+    if (err) return res.status(403).json({ message: "Token is not Valid!" });
+    req.user = user;
+    next();
+  });
+};
+
+export const verifyHeaderAdmin = (req, res, next) => {
+  const authHeader = req.headers.token;
+  if (!authHeader || !authHeader.startsWith("Bearer "))
+    return res.status(401).json({ message: "Not Authenticated!" });
+  const token = authHeader.split(" ")[1];
+  if (!token) return res.status(401).json({ message: "Not Authenticated!" });
+
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+    if (err) return res.status(403).json({ message: "Token is not Valid!" });
+    req.user = user;
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      return res
+        .status(403)
+        .json({ message: "Only Admin is allowed to perform this operation!" });
+    }
+  });
+};

@@ -7,13 +7,18 @@ import testRoute from "./routes/test.route.js";
 import userRoute from "./routes/user.route.js";
 import chatRoute from "./routes/chat.route.js";
 import messageRoute from "./routes/message.route.js";
-import prisma from "./lib/prisma.js";
+// import prisma from "./lib/prisma.js";
 // import dotenv from "dotenv";
 // dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL_LOCAL, credentials: true }));
+app.use(
+  cors({
+    origin: [process.env.CLIENT_URL_LOCAL, "https://estater.vercel.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
