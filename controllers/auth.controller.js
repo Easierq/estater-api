@@ -4,6 +4,8 @@ import prisma from "../lib/prisma.js";
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
+  if ((!username, !email, !password))
+    return res.status(400).json({ message: "Invalid Credentials!" });
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -27,6 +29,8 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   const { username, password } = req.body;
+  if ((!username, !password))
+    return res.status(400).json({ message: "Invalid Credentials!" });
 
   try {
     // CHECK IF THE USER EXISTS
