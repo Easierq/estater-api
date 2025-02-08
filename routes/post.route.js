@@ -17,7 +17,7 @@ const router = express.Router();
 router.get("/", getPosts);
 router.get("/:id", getPost);
 // router.post("/", verifyAdmin, addPost);
-router.post("/", verifyHeaderAdmin, addPost);
+router.post("/", verifyHeader, addPost);
 router.put("/:id", updatePost);
 // router.delete("/:id", deletePost);
 router.delete("/:id", deletePost);
