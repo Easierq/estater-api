@@ -1,5 +1,9 @@
 import express from "express";
-import { verifyAdmin, verifyToken } from "../middleware/verifyToken.js";
+import {
+  verifyAdmin,
+  verifyHeader,
+  verifyHeaderAdmin,
+} from "../middleware/verifyToken.js";
 import {
   addPost,
   deletePost,
@@ -13,7 +17,7 @@ const router = express.Router();
 router.get("/", getPosts);
 router.get("/:id", getPost);
 // router.post("/", verifyAdmin, addPost);
-router.post("/", addPost);
+router.post("/", verifyHeaderAdmin, addPost);
 router.put("/:id", updatePost);
 // router.delete("/:id", deletePost);
 router.delete("/:id", deletePost);
