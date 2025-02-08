@@ -70,7 +70,7 @@ export const getPost = async (req, res) => {
 
 export const addPost = async (req, res) => {
   const body = req.body;
-  const tokenUserId = req.userId;
+  const tokenUserId = req.user.id;
 
   try {
     const newPost = await prisma.post.create({
